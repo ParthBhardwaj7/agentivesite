@@ -15,7 +15,7 @@ export async function GET(
       );
     }
 
-    const videos = agentVideoOperations.getByAgentId(agentId);
+    const videos = await agentVideoOperations.getByAgentId(agentId);
     return NextResponse.json(videos);
 
   } catch (error) {
@@ -50,12 +50,12 @@ export async function POST(
       );
     }
 
-    const result = agentVideoOperations.create(agentId, title, description || '', videoUrl, thumbnailUrl);
+    const result = await agentVideoOperations.create(agentId, title, description || '', videoUrl, thumbnailUrl);
 
     return NextResponse.json({
       success: true,
       message: 'Video added successfully',
-      id: result.lastInsertRowid
+      id: result.id
     });
 
   } catch (error) {

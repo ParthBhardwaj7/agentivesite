@@ -3,7 +3,7 @@ import { agentOperations } from '@/lib/database';
 
 export async function GET() {
   try {
-    const agents = agentOperations.getAll();
+    const agents = await agentOperations.getAll();
     // Ensure we always return an array
     if (Array.isArray(agents)) {
       return NextResponse.json(agents);
@@ -32,10 +32,10 @@ export async function POST(request: NextRequest) {
     // For now, use a default user ID (1) - in a real app, this would come from authentication
     const userId = 1;
     
-    const result = agentOperations.create(userId, name, type, description, config, photoUrl, keyValue, features);
-    
+    const result = await agentOperations.create(userId, name, type, description, config, photoUrl, keyValue, features);
+
     const newAgent = {
-      id: result.lastInsertRowid,
+      id: result.id,
       name,
       type,
       description,

@@ -5,8 +5,8 @@ import { userOperations } from '@/lib/database';
 export async function POST(request: NextRequest) {
   try {
     // Check if default user already exists
-    const existingUser = userOperations.getByEmail('admin@agentive.ai');
-    
+    const existingUser = await userOperations.getByEmail('admin@agentive.ai');
+
     if (existingUser) {
       return NextResponse.json({
         success: true,
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       is_verified: true
     };
 
-    const result = userOperations.create(defaultUser.email, defaultUser.name, defaultUser.password, defaultUser.company);
+    await userOperations.create(defaultUser.email, defaultUser.name, defaultUser.password, defaultUser.company);
 
     return NextResponse.json({
       success: true,

@@ -68,7 +68,7 @@ export default function AboutUs({ isDarkMode, isHovering, setIsHovering }: About
               <strong className={textClass}>Agentive</strong> is a pioneering AI solutions company that specializes in creating intelligent, domain-specific agents for businesses across various industries.
             </p>
             <p>
-              We understand that every business has unique challenges and requirements. That's why we don't offer one-size-fits-all solutions. Instead, we develop customized AI agents that are specifically designed for your industry, your processes, and your goals.
+              We understand that every business has unique challenges and requirements. That&apos;s why we don&apos;t offer one-size-fits-all solutions. Instead, we develop customized AI agents that are specifically designed for your industry, your processes, and your goals.
             </p>
             <p>
               Our team combines deep expertise in artificial intelligence, machine learning, and business process optimization to deliver solutions that not only automate tasks but also enhance decision-making and drive measurable business outcomes.

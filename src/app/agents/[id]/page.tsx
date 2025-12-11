@@ -117,7 +117,7 @@ export default function AgentDetailPage() {
           <div className="text-center">
             <h1 className={`text-2xl font-bold ${textClass} mb-4`}>Agent Not Found</h1>
             <p className={`${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-              The agent you're looking for doesn't exist.
+              The agent you&apos;re looking for doesn&apos;t exist.
             </p>
           </div>
         </div>
@@ -309,7 +309,7 @@ export default function AgentDetailPage() {
                Get In Touch
              </h2>
              <p className={`text-xl md:text-2xl font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-700'} max-w-3xl mx-auto`}>
-               Ready to integrate {agent.name} into your business? Let's discuss how we can help you achieve your goals.
+               Ready to integrate {agent.name} into your business? Let&apos;s discuss how we can help you achieve your goals.
              </p>
            </motion.div>
 

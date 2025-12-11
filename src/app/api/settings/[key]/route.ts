@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: { key: string } }
 ) {
   try {
-    const setting = siteSettingsOperations.get(params.key);
+    const setting = await siteSettingsOperations.get(params.key);
     
     if (!setting) {
       return NextResponse.json({ error: 'Setting not found' }, { status: 404 });

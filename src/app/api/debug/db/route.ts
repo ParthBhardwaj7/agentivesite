@@ -12,15 +12,37 @@ export async function GET() {
     const fileStats = fileExists ? fs.statSync(dbPath) : null;
     
     // Try to get database
-    const db = getDatabase();
-    
+    const db = await getDatabase();
+
     // Check all tables
-    const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
-    
+    const tables = await new Promise<any[]>((resolve, reject) => {
+      db.all("SELECT name FROM sqlite_master WHERE type='table'", (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows);
+      });
+    });
+
     // Check users table specifically
-    const usersTable = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='users'").get();
-    const usersSchema = usersTable ? db.prepare("PRAGMA table_info(users)").all() : null;
-    const userCount = usersTable ? db.prepare("SELECT COUNT(*) as count FROM users").get() : null;
+    const usersTable = await new Promise<{ name: string } | undefined>((resolve, reject) => {
+      db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", (err, row) => {
+        if (err) reject(err);
+        else resolve(row as { name: string } | undefined);
+      });
+    });
+
+    const usersSchema = usersTable ? await new Promise<any[]>((resolve, reject) => {
+      db.all("PRAGMA table_info(users)", (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows);
+      });
+    }) : null;
+
+    const userCount = usersTable ? await new Promise<{ count: number }>((resolve, reject) => {
+      db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
+        if (err) reject(err);
+        else resolve(row as { count: number });
+      });
+    }) : null;
     
     return NextResponse.json({
       success: true,

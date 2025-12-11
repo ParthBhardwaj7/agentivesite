@@ -535,15 +535,15 @@ export default function AdminPage() {
         </div>
 
         {/* Content */}
-        <div className="p-6 bg-slate-900">
+        <div className="p-6 bg-slate-900 min-h-screen">
           {/* Error and Success handling */}
       {error && (
-        <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded">
+        <div className="mb-4 p-3 bg-red-900/50 border border-red-500 text-red-200 rounded">
           ⚠️ {error}
         </div>
       )}
           {success && (
-            <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 rounded">
+            <div className="mb-4 p-3 bg-green-900/50 border border-green-500 text-green-200 rounded">
               ✅ {success}
             </div>
           )}
@@ -551,15 +551,15 @@ export default function AdminPage() {
       {/* Agents Section */}
       {section === 'agents' && (
         <div className="space-y-6">
-          <div className="border rounded-xl p-5 bg-gray-50">
+          <div className="border border-slate-700 rounded-xl p-5 bg-slate-800">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-bold">
+                  <h3 className="text-lg font-bold text-white">
                     {isEditing ? `Edit Agent: ${editingAgent?.name}` : 'Add New AI Agent'}
                   </h3>
                   {isEditing && (
                     <button
                       onClick={cancelEditing}
-                      className="text-sm text-gray-500 hover:text-gray-700 flex items-center"
+                      className="text-sm text-slate-300 hover:text-white flex items-center"
                     >
                       <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -571,20 +571,20 @@ export default function AdminPage() {
                 
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <div>
-                    <label className="block text-sm font-medium mb-1">Agent Name *</label>
+                    <label className="block text-sm font-medium mb-1 text-slate-200">Agent Name *</label>
                 <input 
                       value={newAgent.name}
                       onChange={handleAgentChange('name')}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                  className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Marketing Agent"
                 />
               </div>
               <div>
-                    <label className="block text-sm font-medium mb-1">Agent Type *</label>
+                    <label className="block text-sm font-medium mb-1 text-slate-200">Agent Type *</label>
                     <select 
                       value={newAgent.type}
                       onChange={(e) => setNewAgent(prev => ({ ...prev, type: e.target.value }))}
-                      className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                      className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >
                       <option value="marketing">Marketing</option>
                       <option value="sales">Sales</option>
@@ -598,11 +598,11 @@ export default function AdminPage() {
 
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Status *</label>
+                    <label className="block text-sm font-medium mb-1 text-slate-200">Status *</label>
                     <select 
                       value={newAgent.status}
                       onChange={(e) => setNewAgent(prev => ({ ...prev, status: e.target.value }))}
-                      className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                      className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >
                       <option value="active">🟢 Active</option>
                       <option value="ready">🔵 Ready to Launch</option>
@@ -610,25 +610,25 @@ export default function AdminPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1">Display Order</label>
+                    <label className="block text-sm font-medium mb-1 text-slate-200">Display Order</label>
                 <input 
                       type="number"
                       min="1"
                       placeholder="1"
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                  className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Agent Photo</label>
+                  <label className="block text-sm font-medium mb-1 text-slate-200">Agent Photo</label>
                   
                   {/* File Upload Section */}
                   <div 
                     className={`border-2 border-dashed rounded-lg p-4 mb-3 transition-colors ${
                       dragActive 
-                        ? 'border-blue-400 bg-blue-50' 
-                        : 'border-gray-300 hover:border-gray-400'
+                        ? 'border-blue-500 bg-blue-900/20' 
+                        : 'border-slate-600 hover:border-slate-500 bg-slate-700/50'
                     }`}
                     onDragEnter={handleDrag}
                     onDragLeave={handleDrag}
@@ -648,8 +648,8 @@ export default function AdminPage() {
                         htmlFor="photo-upload"
                         className={`cursor-pointer inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md ${
                           uploading 
-                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                            : 'bg-blue-50 text-blue-700 hover:bg-blue-100'
+                            ? 'bg-slate-600 text-slate-400 cursor-not-allowed' 
+                            : 'bg-blue-600 text-white hover:bg-blue-700'
                         }`}
                       >
                         {uploading ? (
@@ -672,20 +672,20 @@ export default function AdminPage() {
                       
                       {uploadProgress > 0 && uploadProgress < 100 && (
                         <div className="mt-2">
-                          <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="w-full bg-slate-600 rounded-full h-2">
                             <div 
                               className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
                               style={{ width: `${uploadProgress}%` }}
                             ></div>
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">{uploadProgress}% uploaded</p>
+                          <p className="text-xs text-slate-300 mt-1">{uploadProgress}% uploaded</p>
                         </div>
                       )}
                       
-                      <p className="text-xs text-gray-500 mt-2">
+                      <p className="text-xs text-slate-300 mt-2">
                         Drag & drop an image here, or click to browse
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-slate-400">
                         Supported formats: JPG, PNG, GIF, WebP (max 5MB)
                       </p>
                     </div>
@@ -693,12 +693,12 @@ export default function AdminPage() {
 
                   {/* URL Input (Alternative) */}
                   <div className="mb-3">
-                    <label className="block text-xs font-medium mb-1 text-gray-600">Or enter photo URL:</label>
+                    <label className="block text-xs font-medium mb-1 text-slate-300">Or enter photo URL:</label>
                     <input 
                       value={newAgent.photo_url}
                       onChange={handleAgentChange('photo_url')}
                       placeholder="https://example.com/agent-photo.jpg"
-                      className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-sm"
+                      className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                     />
                   </div>
 
@@ -706,16 +706,16 @@ export default function AdminPage() {
                   {newAgent.photo_url && (
                     <div className="mt-3">
                       <div className="flex items-center justify-between mb-1">
-                        <label className="block text-xs font-medium text-gray-600">Preview:</label>
+                        <label className="block text-xs font-medium text-slate-300">Preview:</label>
                         <button
                           type="button"
                           onClick={() => setNewAgent(prev => ({ ...prev, photo_url: '' }))}
-                          className="text-xs text-red-600 hover:text-red-800"
+                          className="text-xs text-red-400 hover:text-red-300"
                         >
                           Remove
                         </button>
                       </div>
-                      <div className="w-20 h-20 rounded-lg overflow-hidden border">
+                      <div className="w-20 h-20 rounded-lg overflow-hidden border border-slate-600">
                         <img 
                           src={newAgent.photo_url} 
                           alt="Agent preview" 
@@ -730,36 +730,36 @@ export default function AdminPage() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Description</label>
+                  <label className="block text-sm font-medium mb-1 text-slate-200">Description</label>
                   <textarea 
                     value={newAgent.description}
                     onChange={(e) => setNewAgent(prev => ({ ...prev, description: e.target.value }))}
                     placeholder="AI agent for marketing automation and lead generation"
                     rows={3}
-                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                    className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Key Value Proposition</label>
+                  <label className="block text-sm font-medium mb-1 text-slate-200">Key Value Proposition</label>
               <input 
                     value={newAgent.key_value}
                     onChange={handleAgentChange('key_value')}
                     placeholder="Saves 200+ hours per month"
-                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                    className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Features (comma-separated)</label>
+                  <label className="block text-sm font-medium mb-1 text-slate-200">Features (comma-separated)</label>
                   <textarea 
                     value={newAgent.features}
                     onChange={(e) => setNewAgent(prev => ({ ...prev, features: e.target.value }))}
                     placeholder="AI-powered automation, Smart decision making, 24/7 availability, Scalable solutions"
                     rows={2}
-                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                    className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Separate features with commas. Default features are pre-filled for new agents.</p>
+                  <p className="text-xs text-slate-400 mt-1">Separate features with commas. Default features are pre-filled for new agents.</p>
             </div>
 
                 <div className="flex space-x-3">
@@ -786,20 +786,20 @@ export default function AdminPage() {
 
           {/* Client View Preview */}
           <div className="mt-8">
-            <h3 className="text-lg font-bold mb-4">Client View Preview</h3>
-            <div className="border rounded-xl overflow-hidden bg-gray-50">
-              <div className="bg-emerald-500/10 text-emerald-400 text-center py-1.5 text-sm">
+            <h3 className="text-lg font-bold mb-4 text-white">Client View Preview</h3>
+            <div className="border border-slate-700 rounded-xl overflow-hidden bg-slate-800">
+              <div className="bg-emerald-500/20 text-emerald-300 text-center py-1.5 text-sm border-b border-slate-700">
                 ✅ {agents.length} Agents Active • Last Update: 2 mins ago
               </div>
               
               <div className="p-6">
                     {safeAgents.length === 0 ? (
-                  <div className="text-center py-8 text-gray-500">
+                  <div className="text-center py-8 text-slate-400">
                     No agents added yet. Add one to see preview.
                   </div>
                 ) : (
                       safeAgents.map(agent => (
-                    <div key={agent.id} className="border-b last:border-0 pb-6 last:pb-0 mb-6 last:mb-0">
+                    <div key={agent.id} className="border-b border-slate-700 last:border-0 pb-6 last:pb-0 mb-6 last:mb-0">
                       <div className="flex items-center space-x-4 mb-4">
                             {agent.photo_url ? (
                               <img 
@@ -816,29 +816,29 @@ export default function AdminPage() {
                               🤖
                             </div>
                             <div>
-                              <h3 className="text-xl font-bold">{agent.name}</h3>
-                              <p className="text-sm text-gray-500 capitalize">{agent.type}</p>
+                              <h3 className="text-xl font-bold text-white">{agent.name}</h3>
+                              <p className="text-sm text-slate-300 capitalize">{agent.type}</p>
                             </div>
                           </div>
-                          <p className="text-gray-600 mb-4">{agent.description || 'AI agent for automation and business intelligence'}</p>
+                          <p className="text-slate-200 mb-4">{agent.description || 'AI agent for automation and business intelligence'}</p>
                           {agent.key_value && (
-                            <div className="bg-blue-50 p-3 rounded mb-4 border border-blue-200">
-                              <p className="text-sm font-medium text-blue-700">{agent.key_value}</p>
+                            <div className="bg-blue-900/30 p-3 rounded mb-4 border border-blue-700">
+                              <p className="text-sm font-medium text-blue-300">{agent.key_value}</p>
                             </div>
                           )}
                           {agent.features && (
                             <div className="mb-4">
-                              <p className="text-sm font-medium text-gray-700 mb-2">Features:</p>
+                              <p className="text-sm font-medium text-slate-200 mb-2">Features:</p>
                               <div className="flex flex-wrap gap-2">
                                 {agent.features.split(',').map((feature, index) => (
-                                  <span key={index} className="px-2 py-1 bg-gray-100 rounded text-xs">
+                                  <span key={index} className="px-2 py-1 bg-slate-700 rounded text-xs text-slate-200">
                                     {feature.trim()}
                                   </span>
                                 ))}
                               </div>
                             </div>
                           )}
-                                                     <div className="bg-gray-100 p-3 rounded text-center font-medium mb-4">
+                                                     <div className="bg-slate-700 p-3 rounded text-center font-medium mb-4 text-slate-200">
                              Status: {agent.status}
                       </div>
                            
@@ -877,48 +877,48 @@ export default function AdminPage() {
         <div className="space-y-6">
           {/* Contact Messages */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Messages</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">Contact Messages</h3>
             <div className="flex mb-4 space-x-4">
-              <button className="px-3 py-1 bg-blue-500 text-white rounded">
+              <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
                 New ({messages.filter(m => m.status === 'new').length})
               </button>
-              <button className="px-3 py-1 border rounded">
+              <button className="px-3 py-1 border border-slate-600 rounded text-slate-300 hover:bg-slate-700 transition-colors">
                 All ({messages.length})
               </button>
             </div>
 
           {messages.length === 0 ? (
-            <div className="text-center py-12 bg-gray-50 rounded-xl">
-              <p className="text-gray-500">No messages yet</p>
-              <p className="text-sm text-gray-400 mt-1">Check back later!</p>
+            <div className="text-center py-12 bg-slate-800 rounded-xl border border-slate-700">
+              <p className="text-slate-300">No messages yet</p>
+              <p className="text-sm text-slate-400 mt-1">Check back later!</p>
             </div>
           ) : (
             messages.map(message => (
               <div 
                 key={message.id} 
-                className={`border rounded-xl p-4 ${message.status === 'new' ? 'border-l-4 border-blue-500' : ''}`}
+                className={`border border-slate-700 rounded-xl p-4 bg-slate-800 ${message.status === 'new' ? 'border-l-4 border-blue-500' : ''}`}
               >
                 <div className="flex justify-between">
                   <div>
-                    <p className="font-medium">{message.name}</p>
-                    <p className="text-sm text-gray-500">{message.email}</p>
+                    <p className="font-medium text-white">{message.name}</p>
+                    <p className="text-sm text-slate-300">{message.email}</p>
                     {message.company && (
-                      <p className="text-sm text-gray-400">{message.company}</p>
+                      <p className="text-sm text-slate-400">{message.company}</p>
                     )}
                   </div>
                   <button 
                     onClick={() => markAsRead(message.id)}
-                    className={`text-xs px-2 py-1 rounded ${
+                    className={`text-xs px-2 py-1 rounded transition-colors ${
                       message.status === 'read'
-                        ? 'bg-gray-100 text-gray-600' 
-                        : 'bg-blue-100 text-blue-600 hover:bg-blue-200'
+                        ? 'bg-slate-700 text-slate-300' 
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
                     }`}
                   >
                     {message.status === 'read' ? 'Read' : 'Mark as Read'}
                   </button>
                 </div>
-                <p className="mt-2 text-gray-700">{message.message}</p>
-                <p className="text-xs text-gray-400 mt-2">
+                <p className="mt-2 text-slate-200">{message.message}</p>
+                <p className="text-xs text-slate-400 mt-2">
                   {new Date(message.created_at).toLocaleString()}
                 </p>
               </div>
@@ -928,28 +928,28 @@ export default function AdminPage() {
 
           {/* Subscriptions */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Newsletter Subscriptions ({subscriptions.length})</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">Newsletter Subscriptions ({subscriptions.length})</h3>
             {subscriptions.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-xl">
-                <p className="text-gray-500">No subscriptions yet</p>
-                <p className="text-sm text-gray-400 mt-1">Check back later!</p>
+              <div className="text-center py-12 bg-slate-800 rounded-xl border border-slate-700">
+                <p className="text-slate-300">No subscriptions yet</p>
+                <p className="text-sm text-slate-400 mt-1">Check back later!</p>
               </div>
             ) : (
               subscriptions.map(subscription => (
                 <div 
                   key={subscription.id} 
-                  className="border rounded-xl p-4 mb-3"
+                  className="border border-slate-700 rounded-xl p-4 mb-3 bg-slate-800"
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <p className="font-medium">{subscription.email}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="font-medium text-white">{subscription.email}</p>
+                      <p className="text-xs text-slate-400">
                         Subscribed on {new Date(subscription.created_at).toLocaleString()}
                       </p>
                     </div>
                     <button 
                       onClick={() => deleteSubscription(subscription.id)}
-                      className="text-xs px-2 py-1 rounded bg-red-100 text-red-600 hover:bg-red-200"
+                      className="text-xs px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700 transition-colors"
                     >
                       Delete
                     </button>
@@ -965,17 +965,17 @@ export default function AdminPage() {
       {section === 'videos' && (
         <div className="space-y-6">
           {/* Add New Video */}
-          <div className="bg-white rounded-xl p-6 shadow-sm border">
-            <h3 className="text-lg font-semibold mb-4">Add New Video</h3>
+          <div className="bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-700">
+            <h3 className="text-lg font-semibold mb-4 text-white">Add New Video</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-200 mb-2">
                   Select Agent
                 </label>
                 <select
                   value={newVideo.agent_id}
                   onChange={(e) => setNewVideo(prev => ({ ...prev, agent_id: parseInt(e.target.value) }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value={0}>Select an agent...</option>
                   {agents.map(agent => (
@@ -986,7 +986,7 @@ export default function AdminPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-200 mb-2">
                   Video Title
                 </label>
                 <input
@@ -994,11 +994,11 @@ export default function AdminPage() {
                   value={newVideo.title}
                   onChange={(e) => setNewVideo(prev => ({ ...prev, title: e.target.value }))}
                   placeholder="Enter video title"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-200 mb-2">
                   Video Upload
                 </label>
                 <div className="space-y-3">
@@ -1006,19 +1006,19 @@ export default function AdminPage() {
                   <div 
                     className={`border-2 border-dashed rounded-lg p-4 transition-colors ${
                       dragActive 
-                        ? 'border-blue-400 bg-blue-50' 
-                        : 'border-gray-300 hover:border-gray-400'
+                        ? 'border-blue-500 bg-blue-900/20' 
+                        : 'border-slate-600 hover:border-slate-500 bg-slate-700/50'
                     }`}
                     onDragOver={handleDrag}
                     onDragEnter={handleDrag}
                     onDrop={handleDrop}
                   >
                     <div className="text-center">
-                      <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                      <svg className="mx-auto h-12 w-12 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                         <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      <div className="flex text-sm text-gray-600 justify-center">
-                        <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                      <div className="flex text-sm text-slate-300 justify-center">
+                        <label className="relative cursor-pointer bg-slate-700 rounded-md font-medium text-blue-400 hover:text-blue-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 px-3 py-1">
                           <span>Upload a video</span>
                           <input 
                             id="video-upload" 
@@ -1031,13 +1031,13 @@ export default function AdminPage() {
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
-                      <p className="text-xs text-gray-500">MP4, MOV, AVI up to 2GB</p>
+                      <p className="text-xs text-slate-400">MP4, MOV, AVI up to 2GB</p>
                     </div>
                   </div>
                   
                   {/* URL Input (Alternative) */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-slate-200 mb-2">
                       Or Enter Video URL
                     </label>
                     <input
@@ -1045,13 +1045,13 @@ export default function AdminPage() {
                       value={newVideo.video_url}
                       onChange={(e) => setNewVideo(prev => ({ ...prev, video_url: e.target.value }))}
                       placeholder="https://example.com/video.mp4 or YouTube/Vimeo URL"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
                   </div>
                 </div>
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-200 mb-2">
                   Thumbnail URL (Optional)
                 </label>
                 <input
@@ -1059,11 +1059,11 @@ export default function AdminPage() {
                   value={newVideo.thumbnail_url}
                   onChange={(e) => setNewVideo(prev => ({ ...prev, thumbnail_url: e.target.value }))}
                   placeholder="https://example.com/thumbnail.jpg"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-200 mb-2">
                   Description
                 </label>
                 <textarea
@@ -1071,7 +1071,7 @@ export default function AdminPage() {
                   onChange={(e) => setNewVideo(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Enter video description"
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-slate-600 rounded-lg bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div className="md:col-span-2">
@@ -1087,17 +1087,17 @@ export default function AdminPage() {
 
           {/* Videos List */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">All Videos ({videos.length})</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">All Videos ({videos.length})</h3>
             {videos.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-xl">
-                <p className="text-gray-500">No videos yet</p>
-                <p className="text-sm text-gray-400 mt-1">Add videos to showcase your agents</p>
+              <div className="text-center py-12 bg-slate-800 rounded-xl border border-slate-700">
+                <p className="text-slate-300">No videos yet</p>
+                <p className="text-sm text-slate-400 mt-1">Add videos to showcase your agents</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {videos.map(video => (
-                  <div key={video.id} className="border rounded-xl p-4 bg-white shadow-sm">
-                    <div className="aspect-video bg-gray-100 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+                  <div key={video.id} className="border border-slate-700 rounded-xl p-4 bg-slate-800 shadow-sm">
+                    <div className="aspect-video bg-slate-700 rounded-lg mb-3 flex items-center justify-center overflow-hidden">
                       {video.video_url ? (
                         <VideoPlayer
                           src={video.video_url}
@@ -1114,16 +1114,16 @@ export default function AdminPage() {
                         <div className="text-4xl">🎥</div>
                       )}
                     </div>
-                    <h4 className="font-semibold text-sm mb-1">{video.title}</h4>
-                    <p className="text-xs text-blue-600 mb-2">Agent: {video.agent_name}</p>
-                    <p className="text-xs text-gray-600 mb-3 line-clamp-2">{video.description}</p>
+                    <h4 className="font-semibold text-sm mb-1 text-white">{video.title}</h4>
+                    <p className="text-xs text-blue-400 mb-2">Agent: {video.agent_name}</p>
+                    <p className="text-xs text-slate-300 mb-3 line-clamp-2">{video.description}</p>
                     <div className="flex justify-between items-center">
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-slate-400">
                         {new Date(video.created_at).toLocaleDateString()}
                       </p>
                       <button
                         onClick={() => deleteVideo(video.id)}
-                        className="text-xs px-2 py-1 rounded bg-red-100 text-red-600 hover:bg-red-200"
+                        className="text-xs px-2 py-1 rounded bg-red-600 text-white hover:bg-red-700 transition-colors"
                       >
                         Delete
                       </button>
@@ -1140,24 +1140,24 @@ export default function AdminPage() {
       {section === 'settings' && (
         <div className="max-w-2xl space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-1">Site Title</label>
+            <label className="block text-sm font-medium mb-1 text-slate-200">Site Title</label>
             <input 
               value={settings.siteTitle}
               onChange={(e) => setSettings(prev => ({ ...prev, siteTitle: e.target.value }))}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+              className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Contact Email</label>
+            <label className="block text-sm font-medium mb-1 text-slate-200">Contact Email</label>
             <input 
               value={settings.contactEmail}
               onChange={(e) => setSettings(prev => ({ ...prev, contactEmail: e.target.value }))}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+              className="w-full p-2 border border-slate-600 rounded bg-slate-700 text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <button 
             onClick={saveSettings}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
           >
             Save Changes
           </button>

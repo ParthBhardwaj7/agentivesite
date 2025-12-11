@@ -14,13 +14,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Save to database
-    const result = contactMessageOperations.create(name, email, company || '', message);
+    const result = await contactMessageOperations.create(name, email, company || '', message);
 
     return NextResponse.json(
-      { 
-        success: true, 
+      {
+        success: true,
         message: 'Contact message sent successfully',
-        id: result.lastInsertRowid 
+        id: result.id
       },
       { status: 201 }
     );
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const messages = contactMessageOperations.getAll();
+    const messages = await contactMessageOperations.getAll();
     return NextResponse.json(messages);
   } catch (error) {
     console.error('Contact API error:', error);

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDatabase } from '@/lib/database';
+import { userOperations } from '@/lib/database';
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,11 +32,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get database
-    const db = getDatabase();
-    
     // Check if user already exists
-    const existingUser = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+    const existingUser = await userOperations.getByEmail(email);
     if (existingUser) {
       return NextResponse.json(
         { error: 'An account with this email already exists' },
@@ -46,23 +43,23 @@ export async function POST(request: NextRequest) {
 
     // Create user without hashing password (for testing)
     console.log('Attempting to create user...');
-    const result = db.prepare('INSERT INTO users (email, name, password, company, provider) VALUES (?, ?, ?, ?, ?)').run(email, name, password, company, 'email');
-    
+    const result = await userOperations.create(email, name, password, company);
+
     console.log('Signup result:', result);
-    
-    if (!result.lastInsertRowid) {
+
+    if (!result.id) {
       throw new Error('Failed to create user - no ID returned');
     }
 
     // Get the created user
-    const newUser = db.prepare('SELECT * FROM users WHERE id = ?').get(result.lastInsertRowid);
+    const newUser = await userOperations.getById(result.id);
     
     if (!newUser) {
       throw new Error('Failed to retrieve created user');
     }
 
     // Return user data (without password)
-    const { password: _, ...userData } = newUser;
+    const { password: userPassword, ...userData } = newUser;
     
     return NextResponse.json({
       success: true,

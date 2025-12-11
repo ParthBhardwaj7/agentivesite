@@ -74,7 +74,7 @@ export default function VideoSlider({ videos, isDarkMode }: VideoSliderProps) {
           No Videos Yet
         </h3>
         <p className={`${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-          Videos will be added soon to showcase the agent's capabilities.
+          Videos will be added soon to showcase the agent&apos;s capabilities.
         </p>
       </div>
     );

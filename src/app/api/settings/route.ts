@@ -3,7 +3,7 @@ import { siteSettingsOperations } from '@/lib/database';
 
 export async function GET() {
   try {
-    const settings = siteSettingsOperations.getAll();
+    const settings = await siteSettingsOperations.getAll();
     return NextResponse.json(settings);
   } catch (error) {
     console.error('Error fetching settings:', error);
@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Key and value are required' }, { status: 400 });
     }
 
-    const result = siteSettingsOperations.set(key, value, description);
-    return NextResponse.json({ success: true, id: result.lastInsertRowid });
+    const result = await siteSettingsOperations.set(key, value, description);
+    return NextResponse.json({ success: true, id: result.id });
   } catch (error) {
     console.error('Error updating setting:', error);
     return NextResponse.json({ error: 'Failed to update setting' }, { status: 500 });

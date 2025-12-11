@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if email already exists
-    const existingSubscription = subscriptionOperations.getByEmail(email);
+    const existingSubscription = await subscriptionOperations.getByEmail(email);
     if (existingSubscription) {
       return NextResponse.json(
         { error: 'Email already subscribed' },
@@ -22,12 +22,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Create new subscription
-    const result = subscriptionOperations.create(email);
+    const result = await subscriptionOperations.create(email);
 
     return NextResponse.json({
       success: true,
       message: 'Subscription created successfully',
-      id: result.lastInsertRowid
+      id: result.id
     });
 
   } catch (error) {
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const subscriptions = subscriptionOperations.getAll();
+    const subscriptions = await subscriptionOperations.getAll();
     return NextResponse.json(subscriptions);
   } catch (error) {
     console.error('Error fetching subscriptions:', error);
@@ -64,7 +64,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const result = subscriptionOperations.delete(parseInt(id));
+    await subscriptionOperations.delete(parseInt(id));
     return NextResponse.json({
       success: true,
       message: 'Subscription deleted successfully'

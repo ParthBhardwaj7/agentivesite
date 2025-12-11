@@ -3,7 +3,7 @@ import { contactMessageOperations } from '@/lib/database';
 
 export async function GET() {
   try {
-    const messages = contactMessageOperations.getAll();
+    const messages = await contactMessageOperations.getAll();
     return NextResponse.json(messages);
   } catch (error) {
     console.error('Contact messages API error:', error);
@@ -25,8 +25,8 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    contactMessageOperations.updateStatus(id, status);
-    
+    await contactMessageOperations.updateStatus(id, status);
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Contact messages API error:', error);
@@ -49,8 +49,8 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    contactMessageOperations.delete(parseInt(id));
-    
+    await contactMessageOperations.delete(parseInt(id));
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Contact messages API error:', error);

@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { agentVideoOperations } from '@/lib/database';
+import { getDatabase } from '@/lib/database';
 
 export async function GET() {
   try {
     // Get all videos from all agents
-    const db = require('@/lib/database').getDatabase();
-    const stmt = db.prepare(`
-      SELECT v.*, a.name as agent_name 
-      FROM agent_videos v 
-      JOIN ai_agents a ON v.agent_id = a.id 
-      ORDER BY v.created_at DESC
-    `);
-    const videos = stmt.all();
+    const db = await getDatabase();
+    const videos = await new Promise<any[]>((resolve, reject) => {
+      db.all(`
+        SELECT v.*, a.name as agent_name
+        FROM agent_videos v
+        JOIN ai_agents a ON v.agent_id = a.id
+        ORDER BY v.created_at DESC
+      `, (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows);
+      });
+    });
     return NextResponse.json(videos);
   } catch (error) {
     console.error('Error fetching videos:', error);
@@ -33,12 +37,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = agentVideoOperations.create(agent_id, title, description || '', video_url, thumbnail_url);
+    const result = await agentVideoOperations.create(agent_id, title, description || '', video_url, thumbnail_url);
 
     return NextResponse.json({
       success: true,
       message: 'Video added successfully',
-      id: result.lastInsertRowid
+      id: result.id
     });
 
   } catch (error) {

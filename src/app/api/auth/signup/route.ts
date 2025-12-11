@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = userOperations.getByEmail(email);
+    const existingUser = await userOperations.getByEmail(email);
     if (existingUser) {
       return NextResponse.json(
         { error: 'An account with this email already exists' },
@@ -49,17 +49,17 @@ export async function POST(request: NextRequest) {
 
     // Create user
     console.log('Attempting to create user with:', { email, name, company, hashedPasswordLength: hashedPassword?.length });
-    const result = userOperations.create(email, name, hashedPassword, company);
-    
+    const result = await userOperations.create(email, name, hashedPassword, company);
+
     console.log('Signup result:', result);
-    
-    if (!result.lastInsertRowid) {
-      console.error('No lastInsertRowid returned from user creation');
+
+    if (!result.id) {
+      console.error('No id returned from user creation');
       throw new Error('Failed to create user - no ID returned');
     }
 
     // Get the created user
-    const newUser = userOperations.getById(result.lastInsertRowid as number);
+    const newUser = await userOperations.getById(result.id);
     
     console.log('Retrieved user:', newUser);
     
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Return user data (without password)
-    const { password: _, ...userData } = newUser;
+    const { password: userPassword, ...userData } = newUser;
     
     return NextResponse.json({
       success: true,

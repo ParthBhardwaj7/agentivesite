@@ -15,7 +15,7 @@ export async function GET(
       );
     }
 
-    const agent = agentOperations.getById(agentId);
+    const agent = await agentOperations.getById(agentId);
     
     if (!agent) {
       return NextResponse.json(
@@ -51,7 +51,7 @@ export async function PUT(
       );
     }
 
-    const result = agentOperations.update(id, {
+    await agentOperations.update(id, {
       name,
       type,
       description,
@@ -63,7 +63,7 @@ export async function PUT(
     });
 
     // Get the updated agent
-    const updatedAgent = agentOperations.getById(id);
+    const updatedAgent = await agentOperations.getById(id);
     
     if (!updatedAgent) {
       return NextResponse.json(
@@ -89,7 +89,7 @@ export async function DELETE(
   try {
     const id = parseInt(params.id);
     
-    const result = agentOperations.delete(id);
+    await agentOperations.delete(id);
     
     return NextResponse.json({ success: true });
   } catch (error) {

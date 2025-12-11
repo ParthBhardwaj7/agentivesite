@@ -3,7 +3,7 @@ import { serviceOperations } from '@/lib/database';
 
 export async function GET() {
   try {
-    const services = serviceOperations.getAll();
+    const services = await serviceOperations.getAll();
     return NextResponse.json({ services });
   } catch (error) {
     console.error('Error fetching services:', error);

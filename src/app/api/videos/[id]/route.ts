@@ -15,7 +15,7 @@ export async function DELETE(
       );
     }
 
-    const result = agentVideoOperations.delete(videoId);
+    await agentVideoOperations.delete(videoId);
     
     return NextResponse.json({
       success: true,
